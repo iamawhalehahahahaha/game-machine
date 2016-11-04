@@ -1,14 +1,18 @@
 #ifndef MSWEEP_H_
 #define MSWEEP_H_
 
-#define MSWEEP_ROWS_DEFAULT_NEW (10)
-#define MSWEEP_COLUMNS_DEFAULT_NEW (10)
-#define MSWEEP_MINES_DEFAULT_NEW (10)
+#define MSWEEP_ROWS_DEFAULT (10)
+#define MSWEEP_COLUMNS_DEFAULT (10)
+#define MSWEEP_MINES_DEFAULT (10)
 
 #define MSWEEP_ROWS_MAX (30)
 #define MSWEEP_COLUMNS_MAX (26)
 #define MSWEEP_MINES_MAX (MSWEEP_ROWS_MAX * MSWEEP_COLUMNS_MAX - 1)
 
+#include <cstdio>
+#include <cstdlib>
+#include <ctime>
+#include <cstring>
 #include <cstddef>
 
 class Msweep
@@ -27,7 +31,14 @@ private:
     void end(bool win);
     void print();
 
-    unsigned char* board;
+    typedef struct tile_s
+    {
+        char tile;
+        bool view;
+        bool flag;
+    } tile_t;
+
+    tile_t *board;
     std::size_t rows;
     std::size_t columns;
     std::size_t mines;
