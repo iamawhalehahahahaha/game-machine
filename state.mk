@@ -7,4 +7,4 @@ PROJDIR = bin
 PROJPATH = $(PROJDIR)/$(PROJECT)
 
 CC = g++
-COMPFLAGS = -std=gnu++98 -Wall -Wextra -pedantic
+COMPFLAGS = -std=gnu++98 -Wall -Wextra -pedantic -I include

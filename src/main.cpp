@@ -1,4 +1,4 @@
-#include "../hdr/minesweeper.h"
+#include "minesweeper.h"
 
 int main()
 {

@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <ctime>
 
-#include "../hdr/minesweeper.h"
+#include "minesweeper.h"
 
 Msweep::Msweep():
     board((unsigned char *)(::operator new(MSWEEP_ROWS_DEFAULT_NEW * MSWEEP_COLUMNS_DEFAULT_NEW))),
@@ -103,7 +103,7 @@ void Msweep::print()
 
     for (i = 0; i < columns; ++i)
     {
-        printf(" %2d", i + 1);
+        printf(" %2lu", i + 1);
     }
 
     printf("\n  +-");
@@ -117,7 +117,7 @@ void Msweep::print()
 
     for (i = 0; i < rows; ++i)
     {
-        printf("%2d| ", i + 1);
+        printf("%2lu| ", i + 1);
 
         for (j = 0; j < columns; ++j)
         {
