@@ -23,26 +23,17 @@ void Msweep::play()
     srand(time(NULL));
 
     insertMines(0, 0);
-
     print();
-
-    system("sleep 1");
-
-    sweep(0, 0);
-
-    print();
-
-    /*
-    insertMines(0, 0);
-
+/*
     floodfill(0, 0);
 
     print();
-    */
+*/
 }
 
-void Msweep::insertMines(std::size_t row, std::size_t column)
+void Msweep::insertMines(std::size_t start_row, std::size_t start_column)
 {
+    std::size_t mine_count;
     std::size_t i;
     std::size_t j;
 
@@ -51,6 +42,18 @@ void Msweep::insertMines(std::size_t row, std::size_t column)
         for (j = 0; j < columns; ++j)
         {
             board[i * columns + j].tile = '-';
+        }
+    }
+
+    while (mine_count < mines)
+    {
+        i = rand() % rows;
+        j = rand() % columns;
+
+        if (i != start_row || j != start_column || board[i * columns + j].tile != '*')
+        {
+            ++mine_count;
+            board[i * columns + j].tile = '*';
         }
     }
 }
@@ -65,9 +68,10 @@ bool Msweep::sweep(std::size_t i, std::size_t j)
     if (board[i * columns + j].tile == '*')
         return false;
 
+/*
     if (board[i * columns + j].tile == '-')
         floodfill(i, j);
-
+*/
     return true;
 }
 
@@ -100,6 +104,7 @@ void Msweep::print()
 
         for (j = 0; j < columns; ++j)
         {
+/*
             //flags
             if (board[i * columns + j].flag == true)
             {
@@ -111,10 +116,11 @@ void Msweep::print()
             }
             else
             {
+*/
                 putchar(' ');
                 putchar(board[i * columns + j].tile);
                 putchar(' ');
-            }
+           // }
         }
 
         printf("\n");

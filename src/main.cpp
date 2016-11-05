@@ -2,7 +2,7 @@
 
 int main()
 {
-    Msweep game(40, 40, 10);
+    Msweep game(40, 40, 99);
     game.play();
 
     return 0;
