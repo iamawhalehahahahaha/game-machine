@@ -1,13 +1,13 @@
-#ifndef MSWEEP_H_
-#define MSWEEP_H_
+#ifndef MINES_H_
+#define MINES_H_
 
-#define MSWEEP_ROWS_DEFAULT (10)
-#define MSWEEP_COLUMNS_DEFAULT (10)
-#define MSWEEP_MINES_DEFAULT (10)
+#define MINES_ROWS_DEFAULT (10)
+#define MINES_COLUMNS_DEFAULT (10)
+#define MINES_MINES_DEFAULT (10)
 
-#define MSWEEP_ROWS_MAX (30)
-#define MSWEEP_COLUMNS_MAX (26)
-#define MSWEEP_MINES_MAX (MSWEEP_ROWS_MAX * MSWEEP_COLUMNS_MAX - 1)
+#define MINES_ROWS_MAX (30)
+#define MINES_COLUMNS_MAX (26)
+#define MINES_MINES_MAX (MINES_ROWS_MAX * MINES_COLUMNS_MAX - 1)
 
 #include <cstdio>
 #include <cstdlib>
@@ -15,13 +15,13 @@
 #include <cstring>
 #include <cstddef>
 
-class Msweep
+class Mines
 {
 public:
     void play();
-    Msweep();
-    Msweep(std::size_t rows, std::size_t columns, std::size_t mines);
-    ~Msweep();
+    Mines();
+    Mines(std::size_t rows, std::size_t columns, std::size_t mines);
+    ~Mines();
 
 private:
     void insertMines(std::size_t row, std::size_t column);
@@ -45,4 +45,4 @@ private:
     std::size_t mines;
 };
 
-#endif /* MSWEEP_H_ */
+#endif /* MINES_H_ */

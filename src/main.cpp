@@ -1,8 +1,8 @@
-#include "minesweeper.h"
+#include "mines.h"
 
 int main()
 {
-    Msweep game(40, 40, 99);
+    Mines game(40, 40, 99);
     game.play();
 
     return 0;

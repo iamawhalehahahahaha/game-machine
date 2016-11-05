@@ -1,24 +1,24 @@
-#include "minesweeper.h"
+#include "mines.h"
 
-Msweep::Msweep():
-    board((tile_t *)(::operator new(sizeof(tile_t) * MSWEEP_ROWS_DEFAULT * MSWEEP_COLUMNS_DEFAULT))),
-    rows(MSWEEP_ROWS_DEFAULT),
-    columns(MSWEEP_COLUMNS_DEFAULT),
-    mines(MSWEEP_MINES_DEFAULT)
+Mines::Mines():
+    board((tile_t *)(::operator new(sizeof(tile_t) * MINES_ROWS_DEFAULT * MINES_COLUMNS_DEFAULT))),
+    rows(MINES_ROWS_DEFAULT),
+    columns(MINES_COLUMNS_DEFAULT),
+    mines(MINES_MINES_DEFAULT)
 { }
 
-Msweep::Msweep(std::size_t new_rows,
-               std::size_t new_columns,
-               std::size_t new_mines):
-    rows((new_rows < MSWEEP_ROWS_MAX) ? new_rows : MSWEEP_ROWS_MAX),
-    columns((new_columns < MSWEEP_COLUMNS_MAX) ? new_columns : MSWEEP_COLUMNS_MAX),
+Mines::Mines(std::size_t new_rows,
+              std::size_t new_columns,
+              std::size_t new_mines):
+    rows((new_rows < MINES_ROWS_MAX) ? new_rows : MINES_ROWS_MAX),
+    columns((new_columns < MINES_COLUMNS_MAX) ? new_columns : MINES_COLUMNS_MAX),
     mines((new_mines < new_rows * new_columns - 1) ? new_mines : new_rows * new_columns - 1)
 {
     mines = (new_mines < rows * columns - 1) ? new_mines : rows * columns - 1;
     board = (tile_t *)(::operator new(sizeof(tile_t) * rows * columns));
 }
 
-void Msweep::play()
+void Mines::play()
 {
     srand(time(NULL));
 
@@ -31,7 +31,7 @@ void Msweep::play()
 */
 }
 
-void Msweep::insertMines(std::size_t start_row, std::size_t start_column)
+void Mines::insertMines(std::size_t start_row, std::size_t start_column)
 {
     std::size_t mine_count;
     std::size_t i;
@@ -58,7 +58,7 @@ void Msweep::insertMines(std::size_t start_row, std::size_t start_column)
     }
 }
 
-bool Msweep::sweep(std::size_t i, std::size_t j)
+bool Mines::sweep(std::size_t i, std::size_t j)
 {
     if (board[i * columns + j].flag == true)
         return true;
@@ -75,7 +75,7 @@ bool Msweep::sweep(std::size_t i, std::size_t j)
     return true;
 }
 
-void Msweep::print()
+void Mines::print()
 {
     std::size_t i;
     std::size_t j;
@@ -127,7 +127,7 @@ void Msweep::print()
     }
 }
 
-Msweep::~Msweep()
+Mines::~Mines()
 {
     delete board;
 }
