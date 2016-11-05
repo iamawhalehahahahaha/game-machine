@@ -24,8 +24,6 @@ void Mines::play()
 
     insertMines(0, 0);
 
-    print();
-
     floodfill(0, 0);
 
     print();
@@ -42,6 +40,8 @@ void Mines::insertMines(std::size_t start_row, std::size_t start_column)
         for (column = 0; column < columns; ++column)
         {
             board[row * columns + column].tile = '-';
+            board[row * columns + column].flag = false;
+            board[row * columns + column].view = false;
         }
     }
 
@@ -87,26 +87,24 @@ void Mines::updateTile(std::size_t row, std::size_t column)
         puts("error: invalid tile\n");
 }
 
-bool Mines::sweep(std::size_t i, std::size_t j)
+bool Mines::sweep(std::size_t row, std::size_t column)
 {
-    if (board[i * columns + j].flag == true)
+    if (board[row * columns + column].flag == true)
         return true;
 
-    board[i * columns + j].view = true;
+    board[row * columns + column].view = true;
 
-    if (board[i * columns + j].tile == '*')
+    if (board[row * columns + column].tile == '*')
         return false;
 
-    floodfill(i, j);
+    floodfill(row, column);
 
     return true;
 }
 
 void Mines::floodfill(std::size_t row, std::size_t column)
 {
-    printf(" %lu %lu\n", row, column);
-
-    if (row > rows || column > columns)
+    if (row >= rows || column >= columns)
         return;
 
     if (board[row * columns + column].view == true)
@@ -117,13 +115,14 @@ void Mines::floodfill(std::size_t row, std::size_t column)
     if (board[row * columns + column].tile != '-')
         return;
 
+    printf(" row: %lu, column: %lu\n", row, column);
     floodfill(row - 1, column - 1);
     floodfill(row - 1, column);
     floodfill(row - 1, column + 1);
     floodfill(row, column - 1);
     floodfill(row, column + 1);
-    floodfill(row - 1, column - 1);
-    floodfill(row, column);
+    floodfill(row + 1, column - 1);
+    floodfill(row + 1, column);
     floodfill(row + 1, column + 1);
 }
 
