@@ -22,11 +22,9 @@ void Mines::play()
 {
     srand(time(NULL));
 
+    
+
     insertMines(0, 0);
-
-    floodfill(0, 0);
-
-    print();
 }
 
 void Mines::insertMines(std::size_t start_row, std::size_t start_column)
@@ -100,6 +98,14 @@ bool Mines::sweep(std::size_t row, std::size_t column)
     floodfill(row, column);
 
     return true;
+}
+
+void Mines::flag(std::size_t row, std::size_t column)
+{
+    if (board[row * columns + column].view == false)
+    {
+        board[row * columns + column].flag = !board[row * columns + column].flag;
+    }
 }
 
 void Mines::floodfill(std::size_t row, std::size_t column)

@@ -28,7 +28,7 @@ private:
     void updateTile(std::size_t row, std::size_t column);
     void floodfill(std::size_t row, std::size_t column);
     bool sweep(std::size_t test_row, std::size_t test_column);
-    bool flag(std::size_t flag_row, std::size_t flag_column);
+    void flag(std::size_t flag_row, std::size_t flag_column);
     bool victory();
     void end(bool win);
     void print();
