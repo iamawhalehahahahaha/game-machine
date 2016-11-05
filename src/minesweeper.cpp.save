@@ -41,16 +41,21 @@ void Msweep::play()
     */
 }
 
-void Msweep::insertMines(std::size_t row, std::size_t column)
+void Msweep::insertMines(std::size_t start_row, std::size_t start_column)
 {
-    std::size_t i;
-    std::size_t j;
+    std::size_t mine_count;
+    std::size_t row;
+    std::size_t column;
 
-    for (i = 0; i < rows; ++i)
+    while (current_mines < mines)
     {
-        for (j = 0; j < columns; ++j)
+        row = rand() % rows;
+        column = rand() % columns;
+
+        if (row != start_row || column != start_column || board[i * columns + j].tile != '*')
         {
-            board[i * columns + j].tile = '-';
+            ++mine_count;
+            
         }
     }
 }
