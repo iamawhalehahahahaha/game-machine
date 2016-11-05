@@ -23,39 +23,68 @@ void Mines::play()
     srand(time(NULL));
 
     insertMines(0, 0);
+
     print();
-/*
+
     floodfill(0, 0);
 
     print();
-*/
 }
 
 void Mines::insertMines(std::size_t start_row, std::size_t start_column)
 {
     std::size_t mine_count;
-    std::size_t i;
-    std::size_t j;
+    std::size_t row;
+    std::size_t column;
 
-    for (i = 0; i < rows; ++i)
+    for (row = 0; row < rows; ++row)
     {
-        for (j = 0; j < columns; ++j)
+        for (column = 0; column < columns; ++column)
         {
-            board[i * columns + j].tile = '-';
+            board[row * columns + column].tile = '-';
         }
     }
 
     while (mine_count < mines)
     {
-        i = rand() % rows;
-        j = rand() % columns;
+        row = rand() % rows;
+        column = rand() % columns;
 
-        if (i != start_row || j != start_column || board[i * columns + j].tile != '*')
+        if ((row != start_row || column != start_column) && board[row * columns + column].tile != '*')
         {
             ++mine_count;
-            board[i * columns + j].tile = '*';
+            board[row * columns + column].tile = '*';
+
+            updateTile(row - 1, column - 1);
+            updateTile(row - 1, column);
+            updateTile(row - 1, column + 1);
+            updateTile(row, column - 1);
+            updateTile(row, column + 1);
+            updateTile(row + 1, column - 1);
+            updateTile(row + 1, column);
+            updateTile(row + 1, column + 1);
         }
     }
+}
+
+void Mines::updateTile(std::size_t row, std::size_t column)
+{
+    if (row >= rows || column >= columns)
+        return;
+
+    if (board[row * columns + column].tile == '*')
+        return;
+
+    if (board[row * columns + column].tile == '-')
+    {
+        board[row * columns + column].tile = '1';
+    }
+    else if (board[row * columns + column]. tile >= '1' && board[row * columns + column]. tile < '8')
+    {
+        ++board[row * columns + column].tile;
+    }
+    else
+        puts("error: invalid tile\n");
 }
 
 bool Mines::sweep(std::size_t i, std::size_t j)
@@ -68,11 +97,34 @@ bool Mines::sweep(std::size_t i, std::size_t j)
     if (board[i * columns + j].tile == '*')
         return false;
 
-/*
-    if (board[i * columns + j].tile == '-')
-        floodfill(i, j);
-*/
+    floodfill(i, j);
+
     return true;
+}
+
+void Mines::floodfill(std::size_t row, std::size_t column)
+{
+    printf(" %lu %lu\n", row, column);
+
+    if (row > rows || column > columns)
+        return;
+
+    if (board[row * columns + column].view == true)
+        return;
+
+    board[row * columns + column].view = true;
+
+    if (board[row * columns + column].tile != '-')
+        return;
+
+    floodfill(row - 1, column - 1);
+    floodfill(row - 1, column);
+    floodfill(row - 1, column + 1);
+    floodfill(row, column - 1);
+    floodfill(row, column + 1);
+    floodfill(row - 1, column - 1);
+    floodfill(row, column);
+    floodfill(row + 1, column + 1);
 }
 
 void Mines::print()
@@ -104,7 +156,6 @@ void Mines::print()
 
         for (j = 0; j < columns; ++j)
         {
-/*
             //flags
             if (board[i * columns + j].flag == true)
             {
@@ -116,11 +167,10 @@ void Mines::print()
             }
             else
             {
-*/
                 putchar(' ');
                 putchar(board[i * columns + j].tile);
                 putchar(' ');
-           // }
+            }
         }
 
         printf("\n");

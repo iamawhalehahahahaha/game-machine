@@ -2,7 +2,7 @@
 
 int main()
 {
-    Mines game(40, 40, 99);
+    Mines game;
     game.play();
 
     return 0;
