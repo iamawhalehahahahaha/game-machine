@@ -29,22 +29,28 @@ void Mines::play()
     getInput(&row, &column);
     insertMines(row, column);
     sweep(row, column);
+    print();
+
+    while (true)
+    {
+        getInput(&row, &column);
+        sweep(row, column);
+        print();
+    }
 }
 
 void Mines::insertMines(std::size_t start_row, std::size_t start_column)
 {
-    std::size_t mine_count;
-    std::size_t row;
-    std::size_t column;
+    std::size_t mine_count = 0;
+    std::size_t row = 0;
+    std::size_t column = 0;
+    std::size_t i = 0;
 
-    for (row = 0; row < rows; ++row)
+    for (i = 0; i < rows * columns; ++i)
     {
-        for (column = 0; column < columns; ++column)
-        {
-            board[row * columns + column].tile = '-';
-            board[row * columns + column].flag = false;
-            board[row * columns + column].view = false;
-        }
+        board[i].tile = '-';
+        board[i].flag = false;
+        board[i].view = false;
     }
 
     while (mine_count < mines)
@@ -186,7 +192,7 @@ bool Mines::getInput(std::size_t *row, std::size_t *column)
 
     printf("Input row column: ");
 
-    while (scanf("%lu %lu %c", row, column, &flag) < 2)
+    while (scanf("%lu %lu", row, column) < 2)
     {
         printf("Invalid input: expeceted: row column [f]\n"
                "Input row column: ");
