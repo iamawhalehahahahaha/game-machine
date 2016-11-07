@@ -20,11 +20,12 @@ Mines::Mines(std::size_t new_rows,
 
 void Mines::play()
 {
+    std::size_t row = 0;
+    std::size_t column = 0;
+
     srand(time(NULL));
 
     
-
-    insertMines(0, 0);
 }
 
 void Mines::insertMines(std::size_t start_row, std::size_t start_column)
@@ -90,14 +91,9 @@ bool Mines::sweep(std::size_t row, std::size_t column)
     if (board[row * columns + column].flag == true)
         return true;
 
-    board[row * columns + column].view = true;
-
-    if (board[row * columns + column].tile == '*')
-        return false;
-
     floodfill(row, column);
 
-    return true;
+    return ! (board[row * columns + column].tile == '*');
 }
 
 void Mines::flag(std::size_t row, std::size_t column)
@@ -121,7 +117,6 @@ void Mines::floodfill(std::size_t row, std::size_t column)
     if (board[row * columns + column].tile != '-')
         return;
 
-    printf(" row: %lu, column: %lu\n", row, column);
     floodfill(row - 1, column - 1);
     floodfill(row - 1, column);
     floodfill(row - 1, column + 1);

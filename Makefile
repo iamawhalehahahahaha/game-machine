@@ -7,9 +7,9 @@
 
 -include state.mk
 
-SRCFILES := $(wildcard $(SRCDIR)/*.cpp)
+SRCFILES := $(wildcard $(SRCDIR)/*$(SUFFIX))
 OBJFILES := $(subst $(SRCDIR),$(OBJDIR),$(SRCFILES))
-OBJFILES := $(subst .cpp,.o,$(OBJFILES))
+OBJFILES := $(subst $(SUFFIX),.o,$(OBJFILES))
 
 all: $(PROJPATH)
 
@@ -17,7 +17,7 @@ $(PROJPATH): $(OBJFILES) | $(PROJDIR)
 	$(CC) $(COMPFLAGS) -o $@ $^
 
 .SECONDEXPANSION:
-$(OBJFILES): %.o: $$(subst $(OBJDIR),$(SRCDIR),%.cpp) | $(OBJDIR)
+$(OBJFILES): %.o: $$(subst $(OBJDIR),$(SRCDIR),%$(SUFFIX)) | $(OBJDIR)
 	$(CC) $(COMPFLAGS) -c -o $@ $^
 
 $(PROJDIR):

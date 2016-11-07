@@ -15,6 +15,8 @@
 #include <cstring>
 #include <cstddef>
 
+#include "misc.h"
+
 class Mines
 {
 public:
