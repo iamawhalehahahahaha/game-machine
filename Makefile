@@ -1,9 +1,9 @@
-################################################################
+#######################################################################
 #	Makefile magic
-#	This makefile compiles all the .cpp files in the directory
+#	This makefile compiles all the $(SUFFIX) files in the directory
 #	It then links the .o files produced
 #	It names the file $(PROJECT)
-################################################################
+#######################################################################
 
 -include state.mk
 

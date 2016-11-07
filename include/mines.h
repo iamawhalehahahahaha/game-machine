@@ -15,8 +15,6 @@
 #include <cstring>
 #include <cstddef>
 
-#include "misc.h"
-
 class Mines
 {
 public:
@@ -34,6 +32,8 @@ private:
     bool victory();
     void end(bool win);
     void print();
+    bool getInput(std::size_t *row, std::size_t *column);
+    void cleanStdin();
 
     typedef struct tile_s
     {

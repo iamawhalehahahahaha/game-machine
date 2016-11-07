@@ -25,7 +25,10 @@ void Mines::play()
 
     srand(time(NULL));
 
-    
+    print();
+    getInput(&row, &column);
+    insertMines(row, column);
+    sweep(row, column);
 }
 
 void Mines::insertMines(std::size_t start_row, std::size_t start_column)
@@ -175,6 +178,34 @@ void Mines::print()
 
         printf("\n");
     }
+}
+
+bool Mines::getInput(std::size_t *row, std::size_t *column)
+{
+    char flag = 0;
+
+    printf("Input row column: ");
+
+    while (scanf("%lu %lu %c", row, column, &flag) < 2)
+    {
+        printf("Invalid input: expeceted: row column [f]\n"
+               "Input row column: ");
+
+        cleanStdin();
+    }
+
+    return flag == 'f';
+}
+
+void Mines::cleanStdin()
+{
+    int c;
+
+    do
+    {
+        c = getchar();
+    }
+    while (c != '\n' && c != EOF);
 }
 
 Mines::~Mines()
