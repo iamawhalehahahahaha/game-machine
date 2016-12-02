@@ -42,6 +42,7 @@ void Mines::play()
         "Each tile is represented with a character.\n"
         "The tiles are:\n"
         "    (1 - 8): the number of mines adjacent to the tile\n"
+        "    -: an empty tile\n"
         "    #: an unrevealed tile\n"
         "    ?: a flag\n"
         "    *: a mine (if you see this, then you lost)\n\n"
@@ -55,7 +56,7 @@ void Mines::play()
     sweep(row, column);
     print();
 
-    do
+    while (victory() == false)
     {
         flag_status = getInput(&row, &column);
         if (flag_status == true)
@@ -75,7 +76,8 @@ void Mines::play()
         }
         print();
         printf("Sweep status: %s\n", (sweep_status) ? "true" : "false");
-    } while (victory() == false);
+    }
+
     if (victory() == true)
     {
         puts("\nYou win!\n");
